@@ -3,9 +3,9 @@ go-apns-server
 
 A quick and dirty script to mock the new HTTP/2 interface to Apple's push gateway.
 Most requests to this server will return a successful response, however, some of
-them will return a "BadDeviceToken" and "Unregistered" from time to time.
+them will return a "BadDeviceToken" or an "Unregistered" from time to time.
 
-# Usage of go-apns-server
+# Usage
 ```
   -cert string
     	The path to the certificate (default "cert.pem")
@@ -35,7 +35,7 @@ $ go get golang.org/x/net/http2
 ## Generate your self signed certificate
 Create a self signed certificate using one of Go's scripts:
 ```
-$ go run /usr/local/go/src/crypto/tls/generate_cert.go --host judepereira.com
+$ go run /usr/local/go/src/crypto/tls/generate_cert.go --host clevertap.com
 ```
 
 ## Start the server
