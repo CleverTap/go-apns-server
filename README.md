@@ -16,33 +16,21 @@ them will return a "BadDeviceToken" or an "Unregistered" from time to time.
 ```
 
 # Getting started
-## Install the Go programming language
-See [here](https://golang.org/doc/install).
+### Install the Go programming language
+See [here](https://golang.org/doc/install). Be sure to install at least version 1.6.
 
-## Install the HTTP/2 library
-### Set your GOPATH
-By default, Go installs itself to /usr/local/go on a Mac:
-```
-$ export GOPATH=/usr/local/go/
-```
-
-### Install the library
-After exporting the GOPATH variable, install the HTTP/2 library:
-```
-$ go get golang.org/x/net/http2
-```
-
-## Generate your self signed certificate
+### Generate your self signed certificate
 Create a self signed certificate using one of Go's scripts:
 ```
 $ go run /usr/local/go/src/crypto/tls/generate_cert.go --host clevertap.com
 ```
 
-## Start the server
+### Start the server
 If you created the certificate elsewhere, you'll need to use the
-options -cert and -key to specify where the certificate and it's key are located
+options -cert and -key to specify where the certificate and its key are located.
 ```
-$ go run go-apns-server.go
+$ go build go-apns-server.go
+$ ./go-apns-server
 ```
 
 The default port is 8443, which can be changed by passing the -port argument

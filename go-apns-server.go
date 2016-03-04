@@ -7,13 +7,12 @@
 package main
 
 import (
-	"strconv"
 	"flag"
 	"fmt"
-	"golang.org/x/net/http2"
 	"log"
 	"math/rand"
 	"net/http"
+	"strconv"
 )
 
 func main() {
@@ -23,13 +22,8 @@ func main() {
 
 	flag.Parse()
 
-	var srv http.Server
-	http2.VerboseLogs = false
-	srv.Addr = ":" + strconv.Itoa(*serverPort)
-	http2.ConfigureServer(&srv, nil)
-
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		n := rand.Int31n(10);
+		n := rand.Int31n(10)
 
 		statusCode := 200
 
@@ -54,5 +48,7 @@ func main() {
 	log.Println("Using certificate", *serverCert, "with key", *serverKey)
 	log.Println("Starting server on port", *serverPort)
 	log.Println("Hit ctrl + c to stop...")
-	log.Fatal(srv.ListenAndServeTLS(*serverCert, *serverKey))
+
+	port := ":" + strconv.Itoa(*serverPort)
+	log.Fatal(http.ListenAndServeTLS(port, *serverCert, *serverKey, nil))
 }
