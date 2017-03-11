@@ -50,9 +50,9 @@ func main() {
 		}
 	})
 
-	log.Println("Using certificate", *serverCert, "with key", *serverKey)
+	log.Printf("Using certificate %#v with key %#v", *serverCert, *serverKey)
 	log.Println("Starting server on port", *serverPort)
-	log.Println("Hit ctrl + c to stop...")
+	log.Println("Press Ctrl+C to stop...")
 
 	port := ":" + strconv.Itoa(*serverPort)
 	log.Fatal(http.ListenAndServeTLS(port, *serverCert, *serverKey, nil))
