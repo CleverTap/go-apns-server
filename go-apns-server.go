@@ -23,30 +23,30 @@ func main() {
 
 	flag.Parse()
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		_, err := ioutil.ReadAll(r.Body)
+	http.HandleFunc("/", func(resp http.ResponseWriter, req *http.Request) {
+		_, err := ioutil.ReadAll(req.Body)
 		if err != nil {
 			log.Println("Error:", err)
 		}
-		n := rand.Int31n(10)
+		num := rand.Int31n(10)
 
 		statusCode := 200
 
 		var body string
 
-		if n == 7 {
+		if num == 7 {
 			statusCode = 400
 			body = "{\"reason\": \"BadDeviceToken\"}"
-		} else if n > 7 {
+		} else if num > 7 {
 			statusCode = 410
 			body = "{\"reason\": \"Unregistered\"}"
 		}
 
-		w.WriteHeader(statusCode)
+		resp.WriteHeader(statusCode)
 
 		if statusCode != 200 {
-			w.Header().Set("Content-Type", "application/json")
-			fmt.Fprintf(w, body)
+			resp.Header().Set("Content-Type", "application/json")
+			fmt.Fprintf(resp, body)
 		}
 	})
 
@@ -54,6 +54,6 @@ func main() {
 	log.Println("Starting server on port", *serverPort)
 	log.Println("Press Ctrl+C to stop...")
 
-	port := ":" + strconv.Itoa(*serverPort)
-	log.Fatal(http.ListenAndServeTLS(port, *serverCert, *serverKey, nil))
+	serverAddr := ":" + strconv.Itoa(*serverPort)
+	log.Fatal(http.ListenAndServeTLS(serverAddr, *serverCert, *serverKey, nil))
 }
